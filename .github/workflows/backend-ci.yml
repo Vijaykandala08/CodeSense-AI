@@ -34,6 +34,14 @@ jobs:
         run: docker compose up -d postgres
 
       - name: Run tests
+        env:
+          DB_URL: ${{ secrets.DB_URL }}
+          DB_USERNAME: ${{ secrets.DB_USERNAME }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          GITHUB_CLIENT_ID: ${{ secrets.OAUTH_CLIENT_ID }}
+          GITHUB_CLIENT_SECRET: ${{ secrets.OAUTH_CLIENT_SECRET }}
+          TOKEN_ENCRYPTOR_PASSWORD: ${{ secrets.TOKEN_ENCRYPTOR_PASSWORD }}
+          TOKEN_ENCRYPTOR_SALT: ${{ secrets.TOKEN_ENCRYPTOR_SALT }}
         run: ./mvnw test
 
       - name: Build application
